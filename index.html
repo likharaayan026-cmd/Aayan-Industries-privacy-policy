@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Aayan Industries</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+body{background:#f8fafc;color:#1e293b;overflow-x:hidden}
+
+/* HEADER */
+header{
+  position:sticky;top:0;z-index: 100;
+  background:rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  padding:15px 5%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  box-shadow:0 4px 20px rgba(0,0,0,.03);
+}
+header img{width:50px}
+header button{
+  border:2px solid #2563eb;
+  background:transparent;
+  color:#2563eb;
+  padding:10px 22px;
+  border-radius:30px;
+  font-weight:600;
+  cursor:pointer;
+  transition:.3s ease;
+}
+header button:hover{
+  background:#2563eb;
+  color:#fff;
+  transform:translateY(-2px);
+}
+
+/* HERO */
+.hero{
+  text-align:center;
+  padding:90px 20px 60px;
+  animation:fadeUp 1s ease;
+}
+.hero img{width:120px;margin-bottom:20px}
+.hero h1{font-size:38px;font-weight:700;line-height:1.3}
+.hero span{color:#2563eb}
+.hero p{opacity:.8;font-size:18px;margin:15px 0 30px;color:#475569}
+.hero button{
+  background:#2563eb;
+  color:#fff;
+  border:none;
+  padding:14px 35px;
+  font-weight:600;
+  font-size:16px;
+  border-radius:30px;
+  cursor:pointer;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+  transition:.3s;
+}
+.hero button:hover{
+  transform:scale(1.05);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.6);
+}
+
+/* TRUST BAR */
+.trust-bar {
+  background: #fff;
+  padding: 25px 20px;
+  text-align: center;
+  border-top: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e2e8f0;
+}
+.trust-bar p {
+  font-size: 15px;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 15px;
+}
+.trust-stats {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  font-weight: 700;
+  font-size: 22px;
+  color: #2563eb;
+}
+.trust-stats span {
+  font-size: 14px;
+  color: #475569;
+  font-weight: 400;
+  display: block;
+}
+
+section{padding:80px 5%}
+.title{text-align:center;font-size:28px;font-weight:700;margin-bottom:45px;position:relative}
+.title::after {
+  content: '';
+  display: block;
+  width: 50px;
+  height: 4px;
+  background: #2563eb;
+  margin: 10px auto 0;
+  border-radius: 2px;
+}
+
+/* SERVICES */
+.services{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:25px;
+}
+.card{
+  background:#fff;
+  padding:40px 30px;
+  border-radius:20px;
+  text-align:center;
+  box-shadow:0 10px 30px rgba(0,0,0,.04);
+  transition:.4s ease;
+  border: 1px solid #f1f5f9;
+}
+.card:hover{
+  transform:translateY(-10px);
+  box-shadow:0 20px 40px rgba(37, 99, 235, .08);
+  border-color: #dbeafe;
+}
+.card h3{margin:20px 0 10px; font-size:20px}
+.card p {color: #64748b; font-size: 14px; line-height: 1.6}
+
+/* ABOUT */
+.about{
+  max-width:800px;
+  margin:auto;
+  background:#fff;
+  padding:40px;
+  border-radius:20px;
+  box-shadow:0 10px 30px rgba(0,0,0,.04);
+  line-height:1.8;
+  text-align:center;
+  color: #475569;
+}
+.about b {color: #1e293b}
+
+/* REVIEWS AREA */
+.reviews-container {
+  overflow-x: auto;
+  padding: 20px 5px;
+  scrollbar-width: none;
+}
+.reviews-container::-webkit-scrollbar { display: none; }
+
+.reviews{
+  display:flex;
+  gap:25px;
+  width: max-content;
+  padding-right: 20px;
+}
+.review{
+  width:320px;
+  background:#fff;
+  padding:30px;
+  border-radius:20px;
+  box-shadow:0 10px 25px rgba(0,0,0,.03);
+  border: 1px solid #e2e8f0;
+  transition:.3s;
+}
+.review:hover{
+  transform:translateY(-5px);
+  box-shadow:0 15px 30px rgba(0,0,0,.06);
+}
+.stars { color: #f59e0b; margin-bottom: 12px; font-size: 18px }
+.review-text { font-size: 14px; color: #475569; line-height: 1.6; font-style: italic; margin-bottom: 20px }
+.client-info { display: flex; align-items: center; gap: 12px }
+.client-img { width: 45px; height: 45px; background: #e2e8f0; border-radius: 50%; display:flex; align-items:center; justify-content:center; font-weight:600; color:#2563eb }
+.client-details h4 { font-size: 15px; font-weight: 600 }
+.client-details span { font-size: 12px; color: #94a3b8 }
+
+/* FORM */
+form{
+  max-width:550px;
+  margin:auto;
+  background:#fff;
+  padding:40px;
+  border-radius:25px;
+  box-shadow:0 15px 40px rgba(0,0,0,.05);
+  border: 1px solid #f1f5f9;
+}
+input, select, textarea{
+  width:100%;
+  padding:14px;
+  margin-bottom:18px;
+  border-radius:12px;
+  border:1.5px solid #e2e8f0;
+  font-size:14px;
+  transition: .3s;
+  background: #f8fafc;
+}
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: #2563eb;
+  background: #fff;
+}
+textarea{height:120px;resize:none}
+form button{
+  width:100%;
+  padding:15px;
+  border-radius:30px;
+  border:none;
+  background:#2563eb;
+  color:#fff;
+  font-weight:600;
+  font-size: 16px;
+  cursor:pointer;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+  transition:.3s;
+}
+form button:hover{
+  background:#1d4ed8;
+  transform:scale(1.02);
+}
+
+/* ERROR MESSAGE TEXT */
+.form-error-msg {
+  color: #dc2626;
+  font-size: 13px;
+  margin-top: -10px;
+  margin-bottom: 15px;
+  display: none;
+  font-weight: 500;
+}
+
+/* CUSTOM POPUP (CONGRATULATIONS OVERLAY) */
+.popup-overlay {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+.popup-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+.popup-card {
+  background: #fff;
+  padding: 40px 30px;
+  max-width: 450px;
+  width: 90%;
+  border-radius: 24px;
+  text-align: center;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  transform: scale(0.8) translateY(30px);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.popup-overlay.active .popup-card {
+  transform: scale(1) translateY(0);
+}
+.popup-icon {
+  width: 80px; height: 80px;
+  background: #dcfce7;
+  color: #16a34a;
+  font-size: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin: 0 auto 20px;
+  animation: popCheck 0.6s ease 0.2s both;
+}
+.popup-card h2 {
+  font-size: 26px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 10px;
+}
+.popup-card p {
+  color: #64748b;
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 25px;
+}
+.popup-card button {
+  background: #16a34a;
+  color: #fff;
+  border: none;
+  padding: 12px 40px;
+  font-weight: 600;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(22, 163, 74, 0.3);
+  transition: 0.2s;
+}
+.popup-card button:hover {
+  background: #15803d;
+  transform: scale(1.05);
+}
+
+footer{
+  text-align:center;
+  padding:35px;
+  opacity:.7;
+  font-size: 14px;
+  border-top: 1px solid #e2e8f0;
+}
+
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(30px)}
+  to{opacity:1;transform:none}
+}
+@keyframes popCheck {
+  0% { transform: scale(0); }
+  70% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <img src="logo.png" alt="Aayan Industries">
+  <button onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+    Start Project
+  </button>
+</header>
+
+<section class="hero">
+  <img src="logo.png" alt="Aayan Industries">
+  <h1>I’m <span>Aayan</span></h1>
+  <p>Professional App Developer • Web Developer • Poster Designer</p>
+  <button onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+    Hire Me Today
+  </button>
+</section>
+
+<div class="trust-bar">
+  <p>Trusted by 10,000+ creators & businesses worldwide</p>
+  <div class="trust-stats">
+    <div>10K+ <span>Happy Clients</span></div>
+    <div>150+ <span>Projects Done</span></div>
+    <div>4.9/5 <span>Rating</span></div>
+  </div>
+</div>
+
+<section>
+  <h2 class="title">Our Premium Services</h2>
+  <div class="services">
+    <div class="card">
+      <h3>📱 App Development</h3>
+      <p>Modern Android & Web Applications built with high performance, secure architecture, and incredibly smooth user interfaces.</p>
+    </div>
+    <div class="card">
+      <h3>💻 Web Development</h3>
+      <p>Fully responsive, lightning-fast, and engaging websites designed to turn your organic visitors into paying customers.</p>
+    </div>
+    <div class="card">
+      <h3>🎨 Poster Design</h3>
+      <p>High-converting, creative social media graphics and marketing material tailored to make your brand stand out.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="title">About Me</h2>
+  <div class="about">
+    I am a passionate <b>App Developer</b>, <b>Web Developer</b>, and 
+    <b>Poster Designer</b>. Dedicated to transforming complex ideas into premium, high-performing digital products for global businesses and creators.
+    <br><br>
+     Business Inquiries: <b>likharaayan026@gmail.com</b>
+  </div>
+</section>
+
+<section style="background: #f1f5f9;">
+  <h2 class="title">What Our Clients Say</h2>
+  <div class="reviews-container">
+    <div class="reviews" id="reviewsContainer">
+      <div class="review">
+        <div class="stars">⭐⭐⭐⭐⭐</div>
+        <div class="review-text">"Outstanding UI & super smooth animations! Aayan understood the requirements perfectly and delivered ahead of schedule."</div>
+        <div class="client-info">
+          <div class="client-img">RK</div>
+          <div class="client-details">
+            <h4>Rahul Kumar</h4>
+            <span>Startup Founder</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="review">
+        <div class="stars">⭐⭐⭐⭐⭐</div>
+        <div class="review-text">"An incredibly professional and fast developer. The web application he made increased our sales conversions significantly."</div>
+        <div class="client-info">
+          <div class="client-img">AS</div>
+          <div class="client-details">
+            <h4>Aman Sharma</h4>
+            <span>E-commerce Owner</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="review">
+        <div class="stars">⭐⭐⭐⭐⭐</div>
+        <div class="review-text">"Best experience working together. The marketing posters were extremely creative and brought heavily engaging traffic."</div>
+        <div class="client-info">
+          <div class="client-img">PD</div>
+          <div class="client-details">
+            <h4>Priya Das</h4>
+            <span>Content Creator</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review">
+        <div class="stars">⭐⭐⭐⭐⭐</div>
+        <div class="review-text">"Great communication and top-tier design work. Highly recommend him for any custom clean interface design."</div>
+        <div class="client-info">
+          <div class="client-img">NK</div>
+          <div class="client-details">
+            <h4>Nitin Kapoor</h4>
+            <span>Brand Manager</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <h2 class="title">Start Your Project</h2>
+  <form id="projectForm">
+    <input id="name" placeholder="Your Name" required>
+    
+    <input id="email" type="email" placeholder="Your Email (must be @gmail.com)" pattern="[a-zA-Z0-9._%+-]+@gmail\.com$" title="Please enter a valid Gmail address ending with @gmail.com" required>
+    <div id="emailError" class="form-error-msg"></div>
+    
+    <input id="mobile" type="tel" placeholder="Mobile Number (10 Digits)" pattern="[0-9]{10}" title="Please enter exactly 10 digits" maxlength="10" required>
+    <div id="mobileError" class="form-error-msg"></div>
+    
+    <select id="service" required>
+      <option value="" disabled selected>Select Service Needed</option>
+      <option value="Poster">Poster — ₹50</option>
+      <option value="Application">Application Development — ₹1,999</option>
+      <option value="Website">Website Development — ₹2,499</option>
+    </select>
+    
+    <textarea id="details" placeholder="Tell us a little about your project details..." required></textarea>
+    <button type="submit" id="submitBtn">Pay & Submit Request</button>
+  </form>
+</section>
+
+<div class="popup-overlay" id="successPopup">
+  <div class="popup-card">
+    <div class="popup-icon">🎉</div>
+    <h2>Congratulations!</h2>
+    <p>Your project request along with your premium payment has been processed successfully. Our core development team will reach out to you within the next 24 hours! 🚀</p>
+    <button onclick="closePopup()">Done</button>
+  </div>
+</div>
+
+<footer>© 2026 Aayan Industries. All rights reserved.</footer>
+
+<script>
+// SHUFFLE REVIEWS ON LOAD
+window.addEventListener('DOMContentLoaded', () => {
+  const container = document.getElementById('reviewsContainer');
+  const items = Array.from(container.children);
+  for (let i = items.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    container.appendChild(items[j]);
+  }
+});
+
+// POPUP CONTROLS
+function openPopup() {
+  document.getElementById('successPopup').classList.add('active');
+}
+function closePopup() {
+  document.getElementById('successPopup').classList.remove('active');
+}
+
+// Firebase configuration initialization
+const firebaseConfig = {
+  apiKey: "AIzaSyBt3iYcR4SijEJqtrBlH8mNr292vakgJFQ",
+  authDomain: "figo-movies.firebaseapp.com",
+  databaseURL: "https://figo-movies-default-rtdb.firebaseio.com",
+  projectId: "figo-movies",
+  storageBucket: "figo-movies.firebasestorage.app",
+  messagingSenderId: "425238806262",
+  appId: "1:425238806262:web:7d23814e4b550695bb76d7"
+};
+
+firebase.initializeApp(firebaseConfig);
+const database = firebase.database();
+
+document.getElementById("projectForm").addEventListener("submit", function(e){
+  e.preventDefault();
+
+  const nameVal = document.getElementById("name").value.trim();
+  const emailVal = document.getElementById("email").value.trim().toLowerCase();
+  const mobileVal = document.getElementById("mobile").value.trim();
+  const serviceVal = document.getElementById("service").value;
+  const detailsVal = document.getElementById("details").value.trim();
+  
+  const emailError = document.getElementById("emailError");
+  const mobileError = document.getElementById("mobileError");
+  
+  emailError.style.display = "none";
+  mobileError.style.display = "none";
+
+  // Strict Client Side Guard Validations
+  if (!emailVal.endsWith("@gmail.com")) {
+    emailError.innerText = "❌ Only official @gmail.com domains are allowed.";
+    emailError.style.display = "block";
+    return;
+  }
+  if (mobileVal.length !== 10 || isNaN(mobileVal)) {
+    mobileError.innerText = "❌ Mobile number must be exactly 10 numeric digits.";
+    mobileError.style.display = "block";
+    return;
+  }
+
+  // --- 24-HOUR RADAR ANTI-SPAM LOCK ---
+  const now = new Date().getTime();
+  const lockTimeLimit = 24 * 60 * 60 * 1000;
+
+  const lastSubmissionEmail = localStorage.getItem("sub_email_" + emailVal);
+  const lastSubmissionMobile = localStorage.getItem("sub_mobile_" + mobileVal);
+
+  if (lastSubmissionEmail) {
+    const timePassed = now - parseInt(lastSubmissionEmail);
+    if (timePassed < lockTimeLimit) {
+      const hoursLeft = Math.ceil((lockTimeLimit - timePassed) / (1000 * 60 * 60));
+      emailError.innerText = `❌ Order Limit Exceeded! You can request again after ${hoursLeft} hours.`;
+      emailError.style.display = "block";
+      return;
+    }
+  }
+
+  if (lastSubmissionMobile) {
+    const timePassed = now - parseInt(lastSubmissionMobile);
+    if (timePassed < lockTimeLimit) {
+      const hoursLeft = Math.ceil((lockTimeLimit - timePassed) / (1000 * 60 * 60));
+      mobileError.innerText = `❌ Number locked! You can request again after ${hoursLeft} hours.`;
+      mobileError.style.display = "block";
+      return;
+    }
+  }
+
+  // --- DYNAMIC PRICING STRUCTURE (IN PAISE) ---
+  let amountInPaise = 0;
+  let numericPriceText = "";
+
+  if (serviceVal === "Poster") {
+    amountInPaise = 50 * 100; // ₹50
+    numericPriceText = "₹50";
+  } else if (serviceVal === "Application") {
+    amountInPaise = 1999 * 100; // ₹1999
+    numericPriceText = "₹1,999";
+  } else if (serviceVal === "Website") {
+    amountInPaise = 2499 * 100; // ₹2499
+    numericPriceText = "₹2,499";
+  }
+
+  document.getElementById("submitBtn").innerText = "Opening Gateway...";
+  document.getElementById("submitBtn").disabled = true;
+
+  // --- INTEGRATING RAZORPAY FRONTEND SECURE SCRIPT CHECKOUT ---
+  var options = {
+    "key": "rzp_live_T5OZeAeTkrB7YG", // Your Live Razorpay Key ID
+    "amount": amountInPaise,
+    "currency": "INR",
+    "name": "Aayan Industries",
+    "description": "Premium Request Fee (" + serviceVal + ")",
+    "image": "logo.png",
+    "handler": function (response) {
+      // Runs smoothly only when the transaction goes full success
+      const finalData = {
+        name: nameVal,
+        email: emailVal,
+        mobile: mobileVal,
+        service: serviceVal,
+        details: detailsVal,
+        amount_paid: numericPriceText,
+        razorpay_payment_id: response.razorpay_payment_id, // Safely mapping tracking codes
+        time: new Date().toLocaleString()
+      };
+
+      document.getElementById("submitBtn").innerText = "Saving Request...";
+
+      database.ref("projects").push(finalData)
+        .then(() => {
+          // Commit parameters directly to localized system storage locks
+          localStorage.setItem("sub_email_" + emailVal, now.toString());
+          localStorage.setItem("sub_mobile_" + mobileVal, now.toString());
+
+          // Launch Premium Congratulations Interface Modal
+          openPopup();
+
+          // Reset forms to fresh setup
+          document.getElementById("projectForm").reset();
+          document.getElementById("submitBtn").innerText = "Pay & Submit Request";
+          document.getElementById("submitBtn").disabled = false;
+        })
+        .catch(err => {
+          alert("❌ Error while storing transaction details: " + err.message);
+          document.getElementById("submitBtn").innerText = "Pay & Submit Request";
+          document.getElementById("submitBtn").disabled = false;
+        });
+    },
+    "prefill": {
+      "name": nameVal,
+      "email": emailVal,
+      "contact": mobileVal
+    },
+    "theme": {
+      "color": "#2563eb"
+    },
+    "modal": {
+      "ondismiss": function () {
+        // Safe tracking guard fallback reset when checkout modal closes
+        document.getElementById("submitBtn").innerText = "Pay & Submit Request";
+        document.getElementById("submitBtn").disabled = false;
+      }
+    }
+  };
+
+  var rzp1 = new Razorpay(options);
+  rzp1.open();
+});
+</script>
+
+</body>
+</html>
