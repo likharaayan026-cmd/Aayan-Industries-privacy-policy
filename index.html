@@ -2,179 +2,376 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Privacy Policy - Aayan Industries</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Poppins,sans-serif;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
 }
 
-body{
-background:#f5f7fb;
-color:#222;
-padding:25px;
-line-height:1.8;
+body {
+  background: #f8fafc;
+  color: #1e293b;
+  overflow-x: hidden;
+  line-height: 1.7;
 }
 
-.container{
-max-width:900px;
-margin:auto;
-background:#fff;
-padding:35px;
-border-radius:18px;
-box-shadow:0 10px 35px rgba(0,0,0,.08);
-animation:fade .6s ease;
+/* HERO CONTAINER */
+.hero-section {
+  text-align: center;
+  padding: 50px 20px 30px;
+  animation: fadeInDown 0.8s ease forwards;
 }
 
-h1{
-text-align:center;
-color:#2563eb;
-margin-bottom:10px;
+.hero-section h1 {
+  font-size: 36px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 8px;
 }
 
-.updated{
-text-align:center;
-color:#666;
-margin-bottom:30px;
+.hero-section p {
+  color: #64748b;
+  font-size: 15px;
 }
 
-h2{
-margin-top:30px;
-margin-bottom:10px;
-color:#2563eb;
+/* CONTENT CONTAINER */
+.container {
+  max-width: 900px;
+  margin: 0 auto 50px;
+  padding: 0 20px;
 }
 
-p{
-margin-bottom:15px;
-color:#444;
+.card {
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+  border: 1px solid #f1f5f9;
+  animation: fadeInUp 0.8s ease forwards;
 }
 
-ul{
-padding-left:20px;
+/* POLICY SECTIONS */
+.policy-group {
+  margin-bottom: 35px;
 }
 
-li{
-margin-bottom:8px;
+.policy-group:last-child {
+  margin-bottom: 0;
 }
 
-a{
-color:#2563eb;
-text-decoration:none;
-font-weight:600;
+.policy-group h2 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-a:hover{
-text-decoration:underline;
+.policy-group h2::before {
+  content: '';
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background: #2563eb;
+  border-radius: 50%;
 }
 
-.contact{
-margin-top:35px;
-padding:20px;
-background:#f8fbff;
-border-radius:12px;
-border:2px solid #2563eb20;
+.policy-group p, .policy-group ul {
+  color: #475569;
+  font-size: 15px;
+  margin-bottom: 10px;
 }
 
-footer{
-margin-top:30px;
-text-align:center;
-color:#777;
-font-size:14px;
+.policy-group ul {
+  list-style: none;
+  padding-left: 20px;
 }
 
-@keyframes fade{
-from{
-opacity:0;
-transform:translateY(20px);
+.policy-group ul li {
+  position: relative;
+  margin-bottom: 8px;
 }
-to{
-opacity:1;
-transform:translateY(0);
+
+.policy-group ul li::before {
+  content: '✔';
+  position: absolute;
+  left: -20px;
+  color: #2563eb;
+  font-size: 12px;
 }
+
+/* CONTACT HIGHLIGHT BOX */
+.contact-box {
+  background: #f8fafc;
+  border: 1.5px dashed #cbd5e1;
+  border-radius: 16px;
+  padding: 25px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.contact-box p {
+  margin-bottom: 15px;
+  font-weight: 500;
+}
+
+.contact-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+}
+
+.link-btn {
+  display: inline-block;
+  padding: 10px 22px;
+  background: #ffffff;
+  color: #2563eb;
+  border: 1px solid #e2e8f0;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+  transition: all 0.3s ease;
+}
+
+.link-btn:hover {
+  background: #2563eb;
+  color: #ffffff;
+  border-color: #2563eb;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(37, 99, 235, 0.25);
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 30px;
+  color: #94a3b8;
+  font-size: 14px;
+  border-top: 1px solid #e2e8f0;
+  background: #ffffff;
+  user-select: none;
+  cursor: pointer;
+}
+
+footer span {
+  transition: color 0.3s;
+}
+
+footer span:hover {
+  color: #64748b;
+}
+
+/* PASSWORD DISPLAY POPUP MODAL */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-card {
+  background: #ffffff;
+  padding: 35px 30px;
+  max-width: 380px;
+  width: 90%;
+  border-radius: 24px;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  transform: scale(0.8) translateY(20px);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.modal-overlay.active .modal-card {
+  transform: scale(1) translateY(0);
+}
+
+.modal-card h3 {
+  font-size: 20px;
+  color: #1e293b;
+  margin-bottom: 12px;
+}
+
+.password-box {
+  background: #eff6ff;
+  border: 2px dashed #2563eb;
+  color: #2563eb;
+  font-size: 26px;
+  font-weight: 700;
+  padding: 15px;
+  border-radius: 16px;
+  letter-spacing: 2px;
+  margin: 15px 0 20px;
+  user-select: all;
+}
+
+.modal-card button {
+  width: 100%;
+  padding: 12px;
+  border-radius: 25px;
+  border: none;
+  background: #2563eb;
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.2s;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.modal-card button:hover {
+  background: #1d4ed8;
+}
+
+/* ANIMATIONS */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 600px) {
+  .hero-section h1 { font-size: 28px; }
+  .card { padding: 25px 20px; }
+  .policy-group h2 { font-size: 18px; }
+  .contact-links { flex-direction: column; }
+  .link-btn { width: 100%; text-align: center; }
 }
 </style>
-
 </head>
 <body>
 
-<div class="container">
-
-<h1>Privacy Policy</h1>
-
-<p class="updated">
-Last Updated: June 28, 2026
-</p>
-
-<p>
-Welcome to <strong>Aayan Industries</strong>. Your privacy is important to us. This Privacy Policy explains how we collect, use, and protect your information when you use our website and services.
-</p>
-
-<h2>Information We Collect</h2>
-
-<ul>
-<li>Name</li>
-<li>Email Address</li>
-<li>Mobile Number</li>
-<li>Project Details</li>
-<li>Payment Information (processed securely by payment gateway)</li>
-</ul>
-
-<h2>How We Use Your Information</h2>
-
-<ul>
-<li>To provide our services.</li>
-<li>To contact you regarding your project.</li>
-<li>To improve our services.</li>
-<li>To process secure payments.</li>
-</ul>
-
-<h2>Data Security</h2>
-
-<p>
-We use industry-standard security practices to help protect your personal information from unauthorized access or disclosure.
-</p>
-
-<h2>Third-Party Services</h2>
-
-<p>
-We may use trusted third-party services such as payment gateways and cloud services to operate our business securely.
-</p>
-
-<h2>Your Rights</h2>
-
-<p>
-You may request to update or delete your personal information by contacting us.
-</p>
-
-<div class="contact">
-
-<h2>Contact Us</h2>
-
-<p>
-🌐 Website:
-<a href="https://aayanindustries.shop" target="_blank">
-https://aayanindustries.shop
-</a>
-</p>
-
-<p>
-📧 Email:
-<a href="mailto:likharaayan026@gmail.com">
-likharaayan026@gmail.com
-</a>
-</p>
-
+<div class="hero-section">
+  <h1>Privacy Policy</h1>
+  <p>Last updated: August 2026</p>
 </div>
 
-<footer>
-© 2026 Aayan Industries. All Rights Reserved.
+<div class="container">
+  <div class="card">
+    
+    <div class="policy-group">
+      <h2>Introduction</h2>
+      <p>Welcome to <b>Aayan Industries</b>. Your privacy is critically important to us. This Privacy Policy document outlines the types of personal information that is received, collected, and how it is used across our digital platforms and services.</p>
+    </div>
+
+    <div class="policy-group">
+      <h2>Information We Collect</h2>
+      <p>When you request a service or fill out a form on our website, we may collect the following details:</p>
+      <ul>
+        <li>Your Full Name</li>
+        <li>Email Address</li>
+        <li>10-digit Mobile Number</li>
+        <li>Project & Requirement Details</li>
+      </ul>
+    </div>
+
+    <div class="policy-group">
+      <h2>How We Use Your Information</h2>
+      <p>We use the collected information solely for business purposes, including:</p>
+      <ul>
+        <li>Processing your project requests and service inquiries.</li>
+        <li>Communicating with you regarding project updates and quotes.</li>
+        <li>Sending automated status emails via secure services.</li>
+        <li>Improving our website performance and client experience.</li>
+      </ul>
+    </div>
+
+    <div class="policy-group">
+      <h2>Data Protection & Security</h2>
+      <p>We implement modern security measures to maintain the safety of your personal information. Your submitted details are stored securely through Firebase database systems and are never sold, traded, or rented to third parties.</p>
+    </div>
+
+    <div class="policy-group">
+      <h2>Cookies & Tracking Technologies</h2>
+      <p>We use local storage mechanisms to improve user experience and prevent spam submissions. We do not use persistent cookies to track your personal online activities on third-party sites.</p>
+    </div>
+
+    <div class="policy-group">
+      <h2>Contact & Support</h2>
+      <p>If you have any questions or concerns regarding this Privacy Policy or wish to reach out for support, feel free to connect with us through the options below:</p>
+      
+      <div class="contact-box">
+        <p>Get in touch with Aayan Industries:</p>
+        <div class="contact-links">
+          <a href="https://aayanindustries.shop" target="_blank" rel="noopener" class="link-btn">Official Website</a>
+          <a href="mailto:likharaayan026@gmail.com" class="link-btn">Email Support</a>
+          <a href="https://play.google.com/store/apps/details?id=com.aayanindustries.shop" target="_blank" rel="noopener" class="link-btn">Google Play Store App</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer id="footerTrigger">
+  <span>© 2026 Aayan Industries. All rights reserved.</span>
 </footer>
 
+<div class="modal-overlay" id="passModal">
+  <div class="modal-card">
+    <h3>🔑 Admin Password</h3>
+    <div class="password-box">paisa</div>
+    <button onclick="closePassModal()">Close</button>
+  </div>
 </div>
+
+<script>
+let clickCount = 0;
+let clickTimer = null;
+
+const footerTrigger = document.getElementById('footerTrigger');
+const passModal = document.getElementById('passModal');
+
+// Double Tap within 5 seconds logic
+footerTrigger.addEventListener('click', () => {
+  clickCount++;
+
+  if (clickCount === 1) {
+    clickTimer = setTimeout(() => {
+      clickCount = 0; // Reset after 5 seconds
+    }, 5000);
+  } else if (clickCount === 2) {
+    clearTimeout(clickTimer);
+    clickCount = 0;
+    openPassModal();
+  }
+});
+
+function openPassModal() {
+  passModal.classList.add('active');
+}
+
+function closePassModal() {
+  passModal.classList.remove('active');
+}
+</script>
 
 </body>
 </html>
